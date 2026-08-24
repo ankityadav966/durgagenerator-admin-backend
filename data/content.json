@@ -1,0 +1,395 @@
+{
+  "siteSettings": {
+    "siteName": "Durga Generators",
+    "tagline": "Reliable Generator Rental Solutions in Jaipur & Rajasthan",
+    "primaryPhone": "+918854954525",
+    "primaryEmail": "vinayvssaini45254525@gmail.com",
+    "address": "Govind Nagar, Plot No. 64, Harmada, Jaipur, Near VKI Vishwakarma Industrial Area, Rajasthan, India",
+    "whatsappNumber": "918854954525",
+    "workingHours": "24/7 Available (Monday - Sunday)",
+    "mapEmbedUrl": "https://maps.google.com/maps?q=Harmada%20Jaipur&t=&z=13&ie=UTF8&iwloc=&output=embed",
+    "socialLinks": {
+      "facebook": "https://facebook.com",
+      "instagram": "https://instagram.com",
+      "youtube": "https://youtube.com",
+      "twitter": "https://x.com"
+    }
+  },
+  "hero": {
+    "sectionTitle": "Hero Section",
+    "slides": [
+      {
+        "id": "hero-1",
+        "badge": "🏠 HOME POWER SOLUTION",
+        "title": "Reliable Home Power Backup",
+        "desc": "Keep your home running smoothly during power cuts with silent and efficient generators.",
+        "image": "/assets/gen_5kva.png",
+        "buttonText": "Book Now",
+        "buttonLink": "tel:+918854954525",
+        "secondaryButtonText": "View Generators",
+        "secondaryButtonLink": "/generators"
+      },
+      {
+        "id": "hero-2",
+        "badge": "🎉 EVENT POWER SOLUTION",
+        "title": "Event & Wedding Power Supply",
+        "desc": "High-capacity generators for weddings, parties and outdoor events without interruption.",
+        "image": "/assets/gen_62kva.png",
+        "buttonText": "Book Now",
+        "buttonLink": "tel:+918854954525",
+        "secondaryButtonText": "View Generators",
+        "secondaryButtonLink": "/generators"
+      },
+      {
+        "id": "hero-3",
+        "badge": "🏗️ INDUSTRIAL POWER",
+        "title": "Industrial Heavy Duty Generators",
+        "desc": "Strong performance generators designed for construction sites and heavy workloads.",
+        "image": "/assets/gen_250kva.png",
+        "buttonText": "Book Now",
+        "buttonLink": "tel:+918854954525",
+        "secondaryButtonText": "View Generators",
+        "secondaryButtonLink": "/generators"
+      }
+    ]
+  },
+  "generators": [
+    {
+      "id": "gen-5kva",
+      "name": "Silent Generator 5 kVA",
+      "capacity": "5 kVA",
+      "fuel": "Diesel",
+      "duration": [
+        "Daily",
+        "Weekly"
+      ],
+      "price": "₹2,000 / Day",
+      "desc": "Perfect for home backup & small shops",
+      "image": "/assets/gen_5kva.png",
+      "features": [
+        "Fuel Efficient",
+        "Low Fuel Consumption",
+        "24/7 Support"
+      ],
+      "popular": true
+    },
+    {
+      "id": "gen-15kva",
+      "name": "Silent Generator 15 kVA",
+      "capacity": "15 kVA",
+      "fuel": "Diesel",
+      "duration": [
+        "Daily",
+        "Weekly"
+      ],
+      "price": "₹2,000 / Day",
+      "desc": "Ideal for small offices & events",
+      "image": "/assets/gen_15kva.png",
+      "features": [
+        "Fuel Efficient",
+        "Low Fuel Consumption",
+        "24/7 Support"
+      ],
+      "popular": true
+    },
+    {
+      "id": "gen-40kva",
+      "name": "Silent Generator 40 kVA",
+      "capacity": "40 kVA",
+      "fuel": "Diesel",
+      "duration": [
+        "Daily",
+        "Weekly",
+        "Monthly"
+      ],
+      "price": "₹3,000 / Day",
+      "desc": "Suitable for showrooms & commercial sites",
+      "image": "/assets/gen_40kva.png",
+      "features": [
+        "Fuel Efficient",
+        "Low Fuel Consumption",
+        "24/7 Support"
+      ],
+      "popular": true
+    },
+    {
+      "id": "gen-62kva",
+      "name": "Silent Generator 62 kVA",
+      "capacity": "62 kVA",
+      "fuel": "Diesel",
+      "duration": [
+        "Daily",
+        "Weekly",
+        "Monthly"
+      ],
+      "price": "₹15,000 / Month",
+      "desc": "Great for building construction & events",
+      "image": "/assets/gen_62kva.png",
+      "features": [
+        "Heavy Duty",
+        "Low Noise Acoustic Enclosure",
+        "24/7 Support"
+      ],
+      "popular": true
+    },
+    {
+      "id": "gen-125kva",
+      "name": "Silent Generator 125 kVA",
+      "capacity": "125 kVA",
+      "fuel": "Diesel",
+      "duration": [
+        "Daily",
+        "Weekly",
+        "Monthly"
+      ],
+      "price": "₹20,000 / Month",
+      "desc": "Heavy duty backup for industries & malls",
+      "image": "/assets/gen_125kva.png",
+      "features": [
+        "Industrial Grade",
+        "Advanced Control Panel",
+        "24/7 Support"
+      ],
+      "popular": true
+    },
+    {
+      "id": "gen-160kva",
+      "name": "Silent Generator 160 kVA",
+      "capacity": "160 kVA",
+      "fuel": "Diesel",
+      "duration": [
+        "Weekly",
+        "Monthly"
+      ],
+      "price": "₹25,000 / Month",
+      "desc": "Ideal for large manufacturing plants",
+      "image": "/assets/gen_160kva.png",
+      "features": [
+        "Continuous Power",
+        "Low Maintenance",
+        "24/7 Support"
+      ],
+      "popular": true
+    },
+    {
+      "id": "gen-250kva",
+      "name": "Silent Generator 250 kVA",
+      "capacity": "250 kVA",
+      "fuel": "Diesel",
+      "duration": [
+        "Weekly",
+        "Monthly"
+      ],
+      "price": "₹40,000 / Month",
+      "desc": "Powerful backup solution for factories",
+      "image": "/assets/gen_250kva.png",
+      "features": [
+        "Mega Capacity",
+        "High Reliability",
+        "24/7 Support"
+      ],
+      "popular": true
+    },
+    {
+      "id": "gen-500kva",
+      "name": "Silent Generator 500 kVA",
+      "capacity": "500 kVA",
+      "fuel": "Diesel",
+      "duration": [
+        "Monthly"
+      ],
+      "price": "₹75,000 / Month",
+      "desc": "Ultimate heavy duty power for massive sites",
+      "image": "/assets/gen_500kva.png",
+      "features": [
+        "Maximum Output",
+        "Heavy Industrial Use",
+        "Dedicated Operator Available"
+      ],
+      "popular": true
+    }
+  ],
+  "features": [
+    {
+      "id": "feat-1",
+      "icon": "Briefcase",
+      "title": "Wide Range",
+      "desc": "From small to heavy duty generators (5 kVA to 500+ kVA)."
+    },
+    {
+      "id": "feat-2",
+      "icon": "BadgeDollarSign",
+      "title": "Affordable Prices",
+      "desc": "Best rental prices with no hidden charges across Jaipur."
+    },
+    {
+      "id": "feat-3",
+      "icon": "ShieldCheck",
+      "title": "Well Maintained",
+      "desc": "All generators are fully serviced, tested and sanitized."
+    },
+    {
+      "id": "feat-4",
+      "icon": "Headphones",
+      "title": "24/7 Support",
+      "desc": "Round the clock support whenever you need power backup."
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "test-1",
+      "name": "Rajesh Sharma",
+      "role": "Event Manager",
+      "rating": 5,
+      "review": "Excellent service! Generator was delivered on time and worked perfectly for our event.",
+      "image": "/assets/user1.jpg"
+    },
+    {
+      "id": "test-2",
+      "name": "Pooja Verma",
+      "role": "Business Owner",
+      "rating": 5,
+      "review": "Very reliable service at the best prices. Highly recommended for everyone.",
+      "image": "/assets/user2.jpg"
+    },
+    {
+      "id": "test-3",
+      "name": "Vikram Singh",
+      "role": "Site Supervisor",
+      "rating": 5,
+      "review": "24/7 support is amazing. They helped us in an emergency and saved the day!",
+      "image": "/assets/user3.jpg"
+    }
+  ],
+  "about": {
+    "heroSubtitle": "About Generator Rent",
+    "heroTitle": "Powering Your Business, Events & Projects",
+    "heroDescription": "We provide reliable generator rental services for industries, construction sites, events, commercial buildings and emergency backup requirements across the region.",
+    "storyBadge": "Our Story",
+    "storyTitle": "Trusted Generator Rental Partner",
+    "storyParagraphs": [
+      "Generator Rent was founded with a simple mission: provide dependable power solutions whenever and wherever customers need them.",
+      "Over the years, we have supplied generators for construction projects, industrial operations, corporate events, weddings, exhibitions, hospitals and emergency situations.",
+      "Our experienced team ensures every generator is maintained to the highest standards, guaranteeing reliable performance and safety."
+    ],
+    "storyImage": "https://images.unsplash.com/photo-1509395176047-4a66953fd231?w=1200",
+    "mission": "To deliver affordable, reliable and uninterrupted power solutions while maintaining exceptional customer service and operational excellence.",
+    "vision": "To become the most trusted generator rental company by providing innovative power solutions and unmatched customer support.",
+    "stats": [
+      {
+        "number": "500+",
+        "label": "Generators Available"
+      },
+      {
+        "number": "1200+",
+        "label": "Projects Completed"
+      },
+      {
+        "number": "98%",
+        "label": "Client Satisfaction"
+      },
+      {
+        "number": "24/7",
+        "label": "Support Service"
+      }
+    ]
+  },
+  "howItWorks": {
+    "heroSubtitle": "Simple Rental Process",
+    "heroTitle": "How It Works",
+    "heroDesc": "Renting a generator has never been easier. Follow our simple process and get uninterrupted power whenever and wherever you need it.",
+    "steps": [
+      {
+        "step": 1,
+        "icon": "Search",
+        "title": "Choose Generator",
+        "desc": "Select the generator that matches your power requirements."
+      },
+      {
+        "step": 2,
+        "icon": "FileText",
+        "title": "Request Quote",
+        "desc": "Share your project details and receive a custom quote."
+      },
+      {
+        "step": 3,
+        "icon": "Truck",
+        "title": "Delivery",
+        "desc": "We transport generators directly to your location."
+      },
+      {
+        "step": 4,
+        "icon": "Settings",
+        "title": "Installation",
+        "desc": "Our technicians ensure safe setup and operation."
+      },
+      {
+        "step": 5,
+        "icon": "Headphones",
+        "title": "Support",
+        "desc": "Enjoy 24/7 monitoring and technical assistance."
+      }
+    ],
+    "rentalPlans": [
+      {
+        "title": "Daily Rental",
+        "desc": "Perfect for events, weddings, exhibitions, and short-term backup power needs."
+      },
+      {
+        "title": "Weekly Rental",
+        "desc": "Suitable for temporary construction projects and business operations."
+      },
+      {
+        "title": "Monthly Rental",
+        "desc": "Cost-effective solution for long-term industrial and commercial requirements."
+      }
+    ]
+  },
+  "faqs": [
+    {
+      "id": "faq-1",
+      "question": "What generator sizes are available?",
+      "answer": "We provide generators ranging from 5 kVA to 500+ kVA for residential, commercial, industrial and event requirements."
+    },
+    {
+      "id": "faq-2",
+      "question": "Do you provide delivery and installation?",
+      "answer": "Yes, our team handles transportation, installation, testing and setup at your location in Jaipur and surrounding regions."
+    },
+    {
+      "id": "faq-3",
+      "question": "Is fuel included in the rental price?",
+      "answer": "Fuel charges depend on the rental package selected. We offer both fuel-inclusive and fuel-exclusive plans."
+    },
+    {
+      "id": "faq-4",
+      "question": "Can I rent a generator for one day?",
+      "answer": "Yes, daily, weekly and monthly rental plans are available according to your requirements."
+    },
+    {
+      "id": "faq-5",
+      "question": "Do you offer emergency power backup?",
+      "answer": "Absolutely. We provide emergency generators 24/7 for hospitals, offices, industries and critical operations."
+    },
+    {
+      "id": "faq-6",
+      "question": "How fast can delivery be arranged?",
+      "answer": "In most locations in Jaipur, delivery can be arranged within 2 to 4 hours depending on generator availability."
+    },
+    {
+      "id": "faq-7",
+      "question": "Do you provide an operator?",
+      "answer": "Yes, trained operators can be provided on request for large events and industrial projects."
+    },
+    {
+      "id": "faq-8",
+      "question": "What industries do you serve?",
+      "answer": "Construction, Manufacturing, Events, Hotels, Hospitals, Shopping Malls, IT Parks and Commercial Buildings."
+    },
+    {
+      "id": "faq-1787547438435",
+      "question": "How do I calculate generator load requirement?",
+      "answer": "temp\n"
+    }
+  ]
+}
