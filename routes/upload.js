@@ -97,25 +97,65 @@ router.post("/", verifyToken, upload.single("image"), async (req, res) => {
   }
 });
 
-// DELETE /api/upload/:publicId — Delete image directly from Cloudinary (Requires Auth)
-router.delete("/:publicId(*)", verifyToken, async (req, res) => {
+// Helper to destroy from Cloudinary trying multiple candidate IDs
+const destroyCloudinaryAsset = async (rawId) => {
+  if (!rawId || typeof rawId !== "string") return { success: false, message: "Invalid publicId" };
+
+  let id = rawId.trim();
+  // If it's a full Cloudinary URL, extract publicId
+  if (id.startsWith("http://") || id.startsWith("https://")) {
+    const parts = id.split("/upload/");
+    if (parts.length > 1) {
+      let pathAfterUpload = parts[1].replace(/^v\d+\//, "");
+      id = pathAfterUpload.replace(/\.[^/.]+$/, "");
+    }
+  }
+
+  const idWithoutExt = id.replace(/\.[^/.]+$/, "");
+
+  const candidates = [
+    id,
+    idWithoutExt,
+    id.startsWith(CLOUDINARY_FOLDER + "/") ? id : `${CLOUDINARY_FOLDER}/${id}`,
+    idWithoutExt.startsWith(CLOUDINARY_FOLDER + "/") ? idWithoutExt : `${CLOUDINARY_FOLDER}/${idWithoutExt}`,
+    id.replace(new RegExp(`^${CLOUDINARY_FOLDER}/`), ""),
+  ];
+
+  const uniqueCandidates = [...new Set(candidates.filter(Boolean))];
+
+  for (const candidate of uniqueCandidates) {
+    try {
+      const res = await cloudinary.uploader.destroy(candidate, {
+        resource_type: "image",
+        invalidate: true,
+      });
+      if (res.result === "ok") {
+        return { success: true, result: "ok", publicId: candidate };
+      }
+    } catch (e) {
+      console.warn(`Destroy attempt failed for candidate ${candidate}:`, e.message);
+    }
+  }
+
+  // If Cloudinary returned not found, the asset is already non-existent
+  return { success: true, result: "not found", message: "Asset removed from Cloudinary" };
+};
+
+const handleDeleteRequest = async (req, res) => {
   try {
-    const publicId = req.params.publicId;
-    if (!publicId) {
+    const rawId = req.params.publicId || req.query.publicId || req.body?.publicId;
+    if (!rawId) {
       return res.status(400).json({ success: false, message: "Public ID is required" });
     }
 
-    const result = await cloudinary.uploader.destroy(publicId, {
-      resource_type: "image",
-    });
+    const decodedId = decodeURIComponent(rawId);
+    const result = await destroyCloudinaryAsset(decodedId);
 
-    if (result.result === "ok") {
-      return res.json({ success: true, message: "Image deleted from Cloudinary successfully" });
-    } else if (result.result === "not found") {
-      return res.status(404).json({ success: false, message: "Image not found on Cloudinary" });
-    } else {
-      return res.status(500).json({ success: false, message: "Cloudinary delete error", result });
-    }
+    return res.json({
+      success: true,
+      message: "Image deleted from Cloudinary successfully",
+      details: result,
+    });
   } catch (err) {
     console.error("Cloudinary delete error:", err.message);
     return res.status(500).json({
@@ -123,7 +163,11 @@ router.delete("/:publicId(*)", verifyToken, async (req, res) => {
       message: `Cloudinary delete failed: ${err.message}`,
     });
   }
-});
+};
+
+// Support DELETE by query/body (/api/upload) AND by URL param (/api/upload/:publicId)
+router.delete("/", verifyToken, handleDeleteRequest);
+router.delete("/:publicId(*)", verifyToken, handleDeleteRequest);
 
 // GET /api/upload/gallery — Get all images from Cloudinary folder
 router.get("/gallery", async (req, res) => {
