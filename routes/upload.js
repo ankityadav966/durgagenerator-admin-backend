@@ -4,14 +4,10 @@ import { v2 as cloudinary } from "cloudinary";
 import { verifyToken } from "../middleware/auth.js";
 import { Readable } from "stream";
 import dotenv from "dotenv";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 
-// Load .env in case this module is initialized before server.js dotenv call (ESM hoisting)
 dotenv.config();
 
-// Configure Cloudinary
+// Configure Cloudinary from environment variables
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -20,7 +16,7 @@ cloudinary.config({
 
 const CLOUDINARY_FOLDER = process.env.CLOUDINARY_FOLDER || "durga-generators";
 
-// Use memory storage — file never touches disk, goes straight to Cloudinary
+// Memory storage: file goes directly to Cloudinary without touching disk
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
@@ -42,13 +38,13 @@ const upload = multer({
 
 const router = express.Router();
 
-// Helper: upload buffer to Cloudinary
-const uploadToCloudinary = (buffer, mimetype, originalname) => {
+// Helper: upload buffer stream directly to Cloudinary
+const uploadToCloudinary = (buffer, originalname) => {
   return new Promise((resolve, reject) => {
     const cleanName = originalname
-      .replace(/\.[^/.]+$/, "") // remove extension
+      .replace(/\.[^/.]+$/, "")
       .replace(/[^a-zA-Z0-9_-]/g, "_")
-      .substring(0, 60);
+      .substring(0, 50);
 
     const uniqueName = `${cleanName}_${Date.now()}`;
 
@@ -57,7 +53,7 @@ const uploadToCloudinary = (buffer, mimetype, originalname) => {
         folder: CLOUDINARY_FOLDER,
         public_id: uniqueName,
         resource_type: "image",
-        overwrite: false,
+        overwrite: true,
         quality: "auto:best",
         fetch_format: "auto",
       },
@@ -67,7 +63,6 @@ const uploadToCloudinary = (buffer, mimetype, originalname) => {
       }
     );
 
-    // Convert buffer to readable stream and pipe to Cloudinary
     const readable = new Readable();
     readable.push(buffer);
     readable.push(null);
@@ -75,60 +70,34 @@ const uploadToCloudinary = (buffer, mimetype, originalname) => {
   });
 };
 
-// POST /api/upload — Upload single image (requires auth)
+// POST /api/upload — Upload single image directly to Cloudinary (Requires Auth)
 router.post("/", verifyToken, upload.single("image"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, message: "No image file provided" });
     }
 
-    try {
-      // Try Cloudinary first
-      const result = await uploadToCloudinary(
-        req.file.buffer,
-        req.file.mimetype,
-        req.file.originalname
-      );
+    const result = await uploadToCloudinary(req.file.buffer, req.file.originalname);
 
-      return res.json({
-        success: true,
-        message: "Image uploaded successfully",
-        url: result.secure_url,
-        publicId: result.public_id,
-        width: result.width,
-        height: result.height,
-        format: result.format,
-      });
-    } catch (cloudErr) {
-      console.warn("Cloudinary upload failed, falling back to local server storage:", cloudErr.message);
-      const ext = req.file.originalname.split(".").pop().toLowerCase() || "png";
-      const cleanBase = req.file.originalname
-        .replace(/\.[^/.]+$/, "")
-        .replace(/[^a-zA-Z0-9_-]/g, "_")
-        .substring(0, 40);
-      const filename = `${cleanBase}_${Date.now()}.${ext}`;
-      const uploadsDir = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "uploads");
-      if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
-      fs.writeFileSync(path.join(uploadsDir, filename), req.file.buffer);
-
-      return res.json({
-        success: true,
-        message: "Image saved locally",
-        url: `/uploads/${filename}`,
-        publicId: `local_${filename}`,
-      });
-    }
+    return res.json({
+      success: true,
+      message: "Image uploaded successfully to Cloudinary",
+      url: result.secure_url,
+      publicId: result.public_id,
+      width: result.width,
+      height: result.height,
+      format: result.format,
+    });
   } catch (err) {
-    console.error("Upload error:", err);
+    console.error("Cloudinary upload error:", err.message);
     return res.status(500).json({
       success: false,
-      message: err.message || "Failed to upload image",
+      message: `Cloudinary upload failed: ${err.message}`,
     });
   }
 });
 
-// DELETE /api/upload/:publicId — Delete image from Cloudinary (requires auth)
-// publicId must be URL-encoded since it contains slashes (folder/filename)
+// DELETE /api/upload/:publicId — Delete image directly from Cloudinary (Requires Auth)
 router.delete("/:publicId(*)", verifyToken, async (req, res) => {
   try {
     const publicId = req.params.publicId;
@@ -145,19 +114,19 @@ router.delete("/:publicId(*)", verifyToken, async (req, res) => {
     } else if (result.result === "not found") {
       return res.status(404).json({ success: false, message: "Image not found on Cloudinary" });
     } else {
-      return res.status(500).json({ success: false, message: "Failed to delete image", result });
+      return res.status(500).json({ success: false, message: "Cloudinary delete error", result });
     }
   } catch (err) {
-    console.error("Cloudinary delete error:", err);
+    console.error("Cloudinary delete error:", err.message);
     return res.status(500).json({
       success: false,
-      message: err.message || "Failed to delete image from Cloudinary",
+      message: `Cloudinary delete failed: ${err.message}`,
     });
   }
 });
 
-// GET /api/upload/gallery — List uploaded images from Cloudinary folder (requires auth)
-router.get("/gallery", verifyToken, async (req, res) => {
+// GET /api/upload/gallery — Get all images from Cloudinary folder
+router.get("/gallery", async (req, res) => {
   try {
     const result = await cloudinary.search
       .expression(`folder:${CLOUDINARY_FOLDER}`)
@@ -176,14 +145,13 @@ router.get("/gallery", verifyToken, async (req, res) => {
 
     return res.json({ success: true, images, total: result.total_count || images.length });
   } catch (err) {
-    console.error("Cloudinary gallery error:", err);
-    // Fallback: return empty gallery instead of crashing
+    console.error("Cloudinary gallery error:", err.message);
     return res.json({ success: true, images: [], total: 0 });
   }
 });
 
-// GET /api/upload/status — Check Cloudinary configuration status
-router.get("/status", verifyToken, async (req, res) => {
+// GET /api/upload/status — Check Cloudinary connection status
+router.get("/status", async (req, res) => {
   try {
     const config = cloudinary.config();
     if (!config.cloud_name || !config.api_key || !config.api_secret) {
@@ -193,17 +161,17 @@ router.get("/status", verifyToken, async (req, res) => {
         message: "Cloudinary environment variables are missing",
       });
     }
-    // Test connection
+
     await cloudinary.api.ping();
     return res.json({
       success: true,
       configured: true,
-      cloud_name: config.cloud_name,
+      cloudName: config.cloud_name,
       folder: CLOUDINARY_FOLDER,
-      message: "Cloudinary is configured and connected",
+      message: "Cloudinary connected successfully",
     });
   } catch (err) {
-    return res.json({
+    return res.status(500).json({
       success: false,
       configured: true,
       message: `Cloudinary connection error: ${err.message}`,

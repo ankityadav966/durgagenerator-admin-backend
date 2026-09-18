@@ -23,7 +23,7 @@
         "badge": "🏠 HOME POWER SOLUTION ",
         "title": "Reliable Home Power Backup",
         "desc": "Keep your home running smoothly during power cuts with silent and efficient generators.",
-        "image": "/assets/gen_15kva.png",
+        "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724468/durga-generators/gen_15kva.png",
         "buttonText": "Book Now",
         "buttonLink": "tel:+918854954525",
         "secondaryButtonText": "View Generators",
@@ -34,7 +34,7 @@
         "badge": "🎉 EVENT POWER SOLUTION",
         "title": "Event & Wedding Power Supply",
         "desc": "High-capacity generators for weddings, parties and outdoor events without interruption.",
-        "image": "/assets/gen_62kva.png",
+        "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724473/durga-generators/gen_62kva.png",
         "buttonText": "Book Now",
         "buttonLink": "tel:+918854954525",
         "secondaryButtonText": "View Generators",
@@ -45,7 +45,7 @@
         "badge": "🏗️ INDUSTRIAL POWER",
         "title": "Industrial Heavy Duty Generators",
         "desc": "Strong performance generators designed for construction sites and heavy workloads.",
-        "image": "/assets/gen_250kva.png",
+        "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724479/durga-generators/gen_250kva.png",
         "buttonText": "Book Now",
         "buttonLink": "tel:+918854954525",
         "secondaryButtonText": "View Generators",
@@ -65,7 +65,7 @@
       ],
       "price": "₹2,000 / Day",
       "desc": "Perfect for home backup & small shops",
-      "image": "/uploads/abceea34d8e9ef23e7b90c3e7b4f92e8_1789706019895.jpg",
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724465/durga-generators/gen_5kva.png",
       "features": [
         "Fuel Efficient",
         "Low Fuel Consumption",
@@ -84,7 +84,7 @@
       ],
       "price": "₹2,000 / Day",
       "desc": "Ideal for small offices & events",
-      "image": "/assets/gen_15kva.png",
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724468/durga-generators/gen_15kva.png",
       "features": [
         "Fuel Efficient",
         "Low Fuel Consumption",
@@ -104,7 +104,7 @@
       ],
       "price": "₹3,000 / Day",
       "desc": "Suitable for showrooms & commercial sites",
-      "image": "/assets/gen_40kva.png",
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724470/durga-generators/gen_40kva.png",
       "features": [
         "Fuel Efficient",
         "Low Fuel Consumption",
@@ -124,7 +124,7 @@
       ],
       "price": "₹15,000 / Month",
       "desc": "Great for building construction & events",
-      "image": "/assets/gen_62kva.png",
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724473/durga-generators/gen_62kva.png",
       "features": [
         "Heavy Duty",
         "Low Noise Acoustic Enclosure",
@@ -144,7 +144,7 @@
       ],
       "price": "₹20,000 / Month",
       "desc": "Heavy duty backup for industries & malls",
-      "image": "/assets/gen_125kva.png",
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724476/durga-generators/gen_125kva.png",
       "features": [
         "Industrial Grade",
         "Advanced Control Panel",
@@ -163,7 +163,7 @@
       ],
       "price": "₹25,000 / Month",
       "desc": "Ideal for large manufacturing plants",
-      "image": "/assets/gen_160kva.png",
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724478/durga-generators/gen_160kva.png",
       "features": [
         "Continuous Power",
         "Low Maintenance",
@@ -182,7 +182,7 @@
       ],
       "price": "₹40,000 / Month",
       "desc": "Powerful backup solution for factories",
-      "image": "/assets/gen_250kva.png",
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724479/durga-generators/gen_250kva.png",
       "features": [
         "Mega Capacity",
         "High Reliability",
@@ -200,7 +200,7 @@
       ],
       "price": "₹75,000 / Month",
       "desc": "Ultimate heavy duty power for massive sites",
-      "image": "/assets/gen_500kva.png",
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724481/durga-generators/gen_500kva.png",
       "features": [
         "Maximum Output",
         "Heavy Industrial Use",
@@ -242,7 +242,7 @@
       "role": "Event Manager",
       "rating": 5,
       "review": "Excellent service! Generator was delivered on time and worked perfectly for our event.",
-      "image": "/assets/user1.jpg"
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724482/durga-generators/user1.png"
     },
     {
       "id": "test-2",
@@ -250,7 +250,7 @@
       "role": "Business Owner",
       "rating": 5,
       "review": "Very reliable service at the best prices. Highly recommended for everyone.",
-      "image": "/assets/user2.jpg"
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724483/durga-generators/user2.png"
     },
     {
       "id": "test-3",
@@ -258,7 +258,7 @@
       "role": "Site Supervisor",
       "rating": 5,
       "review": "24/7 support is amazing. They helped us in an emergency and saved the day!",
-      "image": "/assets/user3.jpg"
+      "image": "https://res.cloudinary.com/dswm5fwef/image/upload/v1789724485/durga-generators/user3.png"
     }
   ],
   "about": {

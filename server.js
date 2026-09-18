@@ -20,9 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Ensure directories exist
-const uploadsDir = path.join(__dirname, "uploads");
 const dataDir = path.join(__dirname, "data");
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 
 // Middlewares
@@ -35,11 +33,10 @@ app.use(cors({
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 
-// Static directory for assets and uploaded images
+// Static directory for assets
 const assetsDir = path.join(__dirname, "assets");
 if (!fs.existsSync(assetsDir)) fs.mkdirSync(assetsDir, { recursive: true });
 app.use("/assets", express.static(assetsDir));
-app.use("/uploads", express.static(uploadsDir));
 
 // API Routes
 app.use("/api/auth", authRoutes);
@@ -78,7 +75,7 @@ const startServer = async () => {
     console.log(`⚡ Durga Generator Rent Backend is Running`);
     console.log(`📡 URL: http://localhost:${PORT}`);
     console.log(`🍃 Database: ${isConnected() ? "MongoDB Atlas (durgagenerator)" : "Local JSON Fallback"}`);
-    console.log(`📁 Uploads served at: http://localhost:${PORT}/uploads/`);
+    console.log(`☁️ Media Storage: Cloudinary (${process.env.CLOUDINARY_CLOUD_NAME || "dswm5fwef"} - durga-generators)`);
     console.log(`===========================================`);
   });
 };
