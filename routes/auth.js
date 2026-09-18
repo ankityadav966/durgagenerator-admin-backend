@@ -5,6 +5,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { JWT_SECRET, verifyToken } from "../middleware/auth.js";
+import Admin from "../models/Admin.js";
+import { isConnected } from "../config/db.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,15 +14,14 @@ const ADMIN_FILE = path.join(__dirname, "../data/admin.json");
 
 const router = express.Router();
 
-// Helper to get or create admin credentials
-const getAdminData = () => {
+// Helper to get fallback admin credentials from JSON
+const getLocalAdminData = () => {
   if (!fs.existsSync(ADMIN_FILE)) {
     const defaultAdmin = {
       username: "admin",
-      // default password: admin123
       passwordHash: bcrypt.hashSync("admin123", 10),
       name: "Durga Admin",
-      email: "vinayvssaini45254525@gmail.com"
+      email: "vinayvssaini45254525@gmail.com",
     };
     fs.writeFileSync(ADMIN_FILE, JSON.stringify(defaultAdmin, null, 2), "utf8");
     return defaultAdmin;
@@ -37,8 +38,20 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ success: false, message: "Username and password are required" });
     }
 
-    const admin = getAdminData();
-    if (username !== admin.username) {
+    let admin = null;
+    if (isConnected()) {
+      admin = await Admin.findOne({ username });
+    }
+
+    // Fallback if not found in DB or DB offline
+    if (!admin) {
+      const localAdmin = getLocalAdminData();
+      if (username === localAdmin.username) {
+        admin = localAdmin;
+      }
+    }
+
+    if (!admin) {
       return res.status(401).json({ success: false, message: "Invalid username or password" });
     }
 
@@ -60,8 +73,8 @@ router.post("/login", async (req, res) => {
       user: {
         username: admin.username,
         name: admin.name,
-        email: admin.email
-      }
+        email: admin.email,
+      },
     });
   } catch (err) {
     console.error("Login error:", err);
@@ -70,23 +83,41 @@ router.post("/login", async (req, res) => {
 });
 
 // GET /api/auth/me (verify current token)
-router.get("/me", verifyToken, (req, res) => {
-  const admin = getAdminData();
-  return res.json({
-    success: true,
-    user: {
-      username: admin.username,
-      name: admin.name,
-      email: admin.email
+router.get("/me", verifyToken, async (req, res) => {
+  try {
+    let admin = null;
+    if (isConnected()) {
+      admin = await Admin.findOne({ username: req.user?.username });
     }
-  });
+    if (!admin) {
+      admin = getLocalAdminData();
+    }
+
+    return res.json({
+      success: true,
+      user: {
+        username: admin.username,
+        name: admin.name,
+        email: admin.email,
+      },
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: "Error fetching user details" });
+  }
 });
 
 // PUT /api/auth/change-password
-router.put("/change-password", verifyToken, (req, res) => {
+router.put("/change-password", verifyToken, async (req, res) => {
   try {
     const { currentPassword, newPassword, newUsername } = req.body;
-    const admin = getAdminData();
+    let admin = null;
+
+    if (isConnected()) {
+      admin = await Admin.findOne({ username: req.user?.username || "admin" });
+    }
+    if (!admin) {
+      admin = getLocalAdminData();
+    }
 
     if (!bcrypt.compareSync(currentPassword, admin.passwordHash)) {
       return res.status(400).json({ success: false, message: "Incorrect current password" });
@@ -96,14 +127,29 @@ router.put("/change-password", verifyToken, (req, res) => {
       return res.status(400).json({ success: false, message: "New password must be at least 5 characters" });
     }
 
-    if (newPassword) {
-      admin.passwordHash = bcrypt.hashSync(newPassword, 10);
-    }
-    if (newUsername) {
-      admin.username = newUsername;
+    const newHash = newPassword ? bcrypt.hashSync(newPassword, 10) : admin.passwordHash;
+    const finalUsername = newUsername || admin.username;
+
+    // Update in MongoDB Atlas
+    if (isConnected()) {
+      await Admin.findOneAndUpdate(
+        { username: admin.username },
+        {
+          username: finalUsername,
+          passwordHash: newHash,
+        },
+        { upsert: true, new: true }
+      );
     }
 
-    fs.writeFileSync(ADMIN_FILE, JSON.stringify(admin, null, 2), "utf8");
+    // Sync to local JSON as backup
+    const localAdmin = {
+      username: finalUsername,
+      passwordHash: newHash,
+      name: admin.name || "Durga Admin",
+      email: admin.email || "vinayvssaini45254525@gmail.com",
+    };
+    fs.writeFileSync(ADMIN_FILE, JSON.stringify(localAdmin, null, 2), "utf8");
 
     return res.json({ success: true, message: "Admin credentials updated successfully" });
   } catch (err) {

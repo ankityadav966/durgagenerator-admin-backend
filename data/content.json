@@ -20,10 +20,10 @@
     "slides": [
       {
         "id": "hero-1",
-        "badge": "🏠 HOME POWER SOLUTION",
+        "badge": "🏠 HOME POWER SOLUTION ",
         "title": "Reliable Home Power Backup",
         "desc": "Keep your home running smoothly during power cuts with silent and efficient generators.",
-        "image": "/assets/gen_5kva.png",
+        "image": "/assets/gen_15kva.png",
         "buttonText": "Book Now",
         "buttonLink": "tel:+918854954525",
         "secondaryButtonText": "View Generators",
@@ -65,7 +65,7 @@
       ],
       "price": "₹2,000 / Day",
       "desc": "Perfect for home backup & small shops",
-      "image": "/assets/gen_5kva.png",
+      "image": "/uploads/abceea34d8e9ef23e7b90c3e7b4f92e8_1789706019895.jpg",
       "features": [
         "Fuel Efficient",
         "Low Fuel Consumption",
